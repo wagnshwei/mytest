@@ -8,6 +8,7 @@ public class PaymentRecord {
     private double receivable_total_amount;
     private double receivable_surplus_principal;
     private String receivable_repayment_date;
+
     private String if_repayment;
 
     public long getCustomer_id() {

@@ -5,6 +5,7 @@ public class TaskOne {
 
     public static void main(String[] args) {
         // 定义线程数量
+
         final int threadCount = 5;
         // 初始化CyclicBarrier
         CyclicBarrier barrier = new CyclicBarrier(threadCount, new Runnable() {
