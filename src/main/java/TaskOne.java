@@ -4,6 +4,7 @@ import java.util.concurrent.CyclicBarrier;
 public class TaskOne {
 
     public static void main(String[] args) {
+        System.out.println("abc");
         // 定义线程数量
         final int threadCount = 5;
         // 初始化CyclicBarrier
