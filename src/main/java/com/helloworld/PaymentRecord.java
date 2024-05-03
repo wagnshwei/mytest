@@ -1,3 +1,5 @@
+package com.helloworld;
+
 public class PaymentRecord {
 
     private long customer_id;

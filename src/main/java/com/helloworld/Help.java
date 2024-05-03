@@ -1,3 +1,5 @@
+package com.helloworld;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 
@@ -19,12 +21,12 @@ public class Help {
     }
 
     public static String dateFormat(Cell cell) {
-        if (cell.getCellType() == CellType.NUMERIC) {
+//        if (cell.getCellType() == CellType.NUMERIC) {
             Date javaDate = cell.getDateCellValue();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             return dateFormat.format(javaDate);
-        }
-        return null;
+//        }
+//        return null;
     }
 
     public static double amountToDouble(Cell cell) {
