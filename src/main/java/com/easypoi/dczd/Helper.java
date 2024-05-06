@@ -48,4 +48,8 @@ public class Helper {
         }
     }
 
+    public static void printList(List<Entity> list) {
+        Optional.ofNullable(list).filter(entity -> !entity.isEmpty()).ifPresent(entity -> entity.forEach(System.out::println));
+    }
+
 }
