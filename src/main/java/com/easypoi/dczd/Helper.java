@@ -1,5 +1,7 @@
 package com.easypoi.dczd;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,23 +24,34 @@ public class Helper {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
-    public static String constructBankLeaseInfo(Double origin, String date) {
-        return "[{\"leaseAmount\":" + origin + "," + "\"expireDate\":\"" + date + "\"}]";
+    public static void constructBankLeaseInfo(Entity entity) {
+        String leaseInfo = "[";
+//        + "{\"leaseAmount\":" + entity.getOriginalLoanAmount() + "," + "\"expireDate\":\"" + entity.getApplyLoanEndTime() + "\"}";
+        for(Entity child : entity.getChildren()) {
+            if(child.getOriginalLoanAmount() != null) {
+                leaseInfo += "{\"leaseAmount\":" + child.getOriginalLoanAmount() + "," + "\"expireDate\":\"" + child.getApplyLoanEndTime() + "\"},";
+            }
+        }
+        entity.setLeaseInfo(leaseInfo.substring(0, leaseInfo.length()-1)+"]");
     }
 
     public static void initializeEntity(Entity entity) {
         entity.setApplyLoanEndTime(Helper.formatDateString(entity.getApplyLoanEndTime()));
         entity.setApplyLoanStartTime(Helper.formatDateString(entity.getApplyLoanStartTime()));
-        entity.setLeaseInfo(Helper.constructBankLeaseInfo(entity.getOriginalLoanAmount(), entity.getApplyLoanEndTime()));
+//        entity.setLeaseInfo(Helper.constructBankLeaseInfo(entity.getOriginalLoanAmount(), entity.getApplyLoanEndTime()));
         entity.setIfSettle(IfSettleEnum.getCodeByValue(trimString(entity.getIfSettle())));
-        entity.setIfLoan(getIfLoan(entity.getIndex()));
+        entity.setIfLoan(getIfLoan(entity.getIndex(), entity.getIfLoan()));
+        entity.setIfBankOfferContractForm(IfOfferFormEnum.getCodeByValue(entity.getIfBankOfferContractForm()));
     }
 
     public static String trimString(String value) {
         return value == null ? value : value.trim();
     }
 
-    public static String getIfLoan(String index) {
+    public static String getIfLoan(String index, String ifLoan) {
+        if(StringUtils.isNotEmpty(ifLoan)) {
+            return ifLoan;
+        }
         if(index == null){
             return null;
         } else if("*".equals(trimString(index))) {

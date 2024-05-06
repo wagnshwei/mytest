@@ -28,6 +28,9 @@ public class Entity implements Serializable {
     @Excel(name="转贷银行")
     private String bankName;
 
+    @Excel(name="是否出函")
+    private String ifBankOfferContractForm;
+
     @Excel(name="原贷款金额（万元）")
     private Double originalLoanAmount;
 
@@ -48,6 +51,7 @@ public class Entity implements Serializable {
 
     private String leaseInfo;
 
+    @Excel(name="是否放款")
     private String ifLoan;
 
     private List<Entity> children = new ArrayList<>();

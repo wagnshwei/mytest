@@ -5,13 +5,13 @@ import java.util.List;
 
 public class SyncDB {
 
-    private static String jdbcURL = "jdbc:mysql://192.168.0.15:3306/dczd?useUnicode=true&characterEncoding=UTF-8";
+    private static String jdbcURL = "jdbc:mysql://localhost:3306/dczd?useUnicode=true&characterEncoding=UTF-8";
     private static String username = "root";
     private static String password = "123";
     private static final String INSERT_APPLY_SQL = "INSERT INTO dczd_business_apply " +
             " (company_name, bank_name, apply_loan_contract_no, bank_lease_info, company_offer_amount, apply_loan_amount, " +
-            " apply_loan_start_time, apply_loan_end_time, if_settle, approval_status, create_time, create_user_id, update_time, update_user_id) " +
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            " apply_loan_start_time, apply_loan_end_time, if_issue_loan_contact_form, if_settle, approval_status, create_time, create_user_id, update_time, update_user_id) " +
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String INSERT_DETAIL_SQL = "INSERT INTO dczd_business_repay_detail " +
             " (business_apply_id, enlending_balance, interest_balance, if_loan, start_time, end_time, create_time, create_user_id, update_time, update_user_id) " +
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -49,12 +49,13 @@ public class SyncDB {
                     applyStatement.setDouble(6, entity.getApplyLoanAmount());
                     applyStatement.setString(7, entity.getApplyLoanStartTime());
                     applyStatement.setString(8, entity.getApplyLoanEndTime());
-                    applyStatement.setString(9, entity.getIfSettle());
-                    applyStatement.setString(10, "-1");
-                    applyStatement.setString(11, now);
-                    applyStatement.setLong(12, 1L);
-                    applyStatement.setString(13, now);
-                    applyStatement.setLong(14, 1L);
+                    applyStatement.setString(9, entity.getIfBankOfferContractForm());
+                    applyStatement.setString(10, entity.getIfSettle());
+                    applyStatement.setString(11, "-1");
+                    applyStatement.setString(12, now);
+                    applyStatement.setLong(13, 1L);
+                    applyStatement.setString(14, now);
+                    applyStatement.setLong(15, 1L);
                     applyStatement.executeUpdate();
 
                     ResultSet rs = applyStatement.getGeneratedKeys();

@@ -12,7 +12,8 @@ import java.util.List;
 
 public class ReadExcel {
 
-    private static String path = "C:\\Users\\HP\\Desktop\\2024-05\\report.xlsx";
+//    private static String path = "C:\\Users\\86188\\Documents\\WeChat Files\\wxid_pnreok0sohhf22\\FileStorage\\File\\2024-05\\2024-05\\report.xlsx";
+    private static String path = "C:\\Users\\86188\\Desktop\\report.xlsx";
 
     public static List<Entity> readDTOFromExcel(int sheetIndex) throws Exception {
         ImportParams params = new ImportParams();

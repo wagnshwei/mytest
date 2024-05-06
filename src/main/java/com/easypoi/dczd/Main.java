@@ -8,13 +8,13 @@ public class Main {
         for(int i = 0; i < 3; i ++) {
             System.out.println("reading...");
             List<Entity> sheet = ReadExcel.readDTOFromExcel(i);
-            Helper.printList(sheet);
             List<Entity> refList = ReadExcel.refactorDTO(sheet);
+            refList.forEach(entity -> Helper.constructBankLeaseInfo(entity));
             Helper.printList(refList);
             System.out.println("read");
-//            System.out.println("inserting...");
-//            SyncDB.insert(refList);
-//            System.out.println("inserted");
+            System.out.println("inserting...");
+            SyncDB.insert(refList);
+            System.out.println("inserted");
         }
     }
 
