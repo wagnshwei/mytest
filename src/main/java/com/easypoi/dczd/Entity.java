@@ -34,8 +34,11 @@ public class Entity implements Serializable {
     @Excel(name="原贷款金额（万元）")
     private Double originalLoanAmount;
 
-    @Excel(name="省平台配资金额（万元）")
+    @Excel(name="企业自筹金额（万元）")
     private Double companyOfferAmount;
+
+    @Excel(name="省平台配资金额（万元）")
+    private Double provincePlatformAmount;
 
     @Excel(name="本次借款金额（万元）")
     private Double applyLoanAmount;
@@ -53,6 +56,9 @@ public class Entity implements Serializable {
 
     @Excel(name="是否放款")
     private String ifLoan;
+
+    @Excel(name="转贷天数")
+    private Integer days;
 
     private List<Entity> children = new ArrayList<>();
 

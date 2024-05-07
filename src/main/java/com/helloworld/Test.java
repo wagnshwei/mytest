@@ -8,6 +8,11 @@ public class Test {
         b6=b4+b5;
 //        b3=(b1+b2);
 //        System.out.println(b3+b6);
+
+        for(int i = 0; i < 5; i ++) {
+            System.out.println(i);
+        }
+
     }
 
 

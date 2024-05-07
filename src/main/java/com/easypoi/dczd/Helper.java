@@ -26,13 +26,18 @@ public class Helper {
 
     public static void constructBankLeaseInfo(Entity entity) {
         String leaseInfo = "[";
-//        + "{\"leaseAmount\":" + entity.getOriginalLoanAmount() + "," + "\"expireDate\":\"" + entity.getApplyLoanEndTime() + "\"}";
+        boolean removeComma = false;
         for(Entity child : entity.getChildren()) {
             if(child.getOriginalLoanAmount() != null) {
+                removeComma = true;
                 leaseInfo += "{\"leaseAmount\":" + child.getOriginalLoanAmount() + "," + "\"expireDate\":\"" + child.getApplyLoanEndTime() + "\"},";
             }
         }
-        entity.setLeaseInfo(leaseInfo.substring(0, leaseInfo.length()-1)+"]");
+        if(removeComma) {
+            entity.setLeaseInfo(leaseInfo.substring(0, leaseInfo.length()-1)+"]");
+        } else {
+            entity.setLeaseInfo(leaseInfo+"]");
+        }
     }
 
     public static void initializeEntity(Entity entity) {
@@ -50,7 +55,7 @@ public class Helper {
 
     public static String getIfLoan(String index, String ifLoan) {
         if(StringUtils.isNotEmpty(ifLoan)) {
-            return ifLoan;
+            return IfLoanEnum.getCodeByValue(trimString(ifLoan));
         }
         if(index == null){
             return null;
