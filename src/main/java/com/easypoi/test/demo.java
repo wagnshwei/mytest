@@ -23,12 +23,14 @@ public class demo {
     public void excelUtil(String templateUrl, Map<String, Object> dateMap, String exportUrl) throws Exception {
         TemplateExportParams params = new TemplateExportParams(templateUrl);
         Workbook workbook = ExcelExportUtil.exportExcel(params, dateMap);
+        System.out.println("123456");
         FileOutputStream fos = new FileOutputStream(exportUrl);
         workbook.write(fos);
         fos.close();
     }
- 
-/**
+
+
+    /**
      * 数据
      * @return
      */
