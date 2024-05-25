@@ -24,6 +24,7 @@ public class demo {
         TemplateExportParams params = new TemplateExportParams(templateUrl);
         Workbook workbook = ExcelExportUtil.exportExcel(params, dateMap);
         System.out.println("123456");
+        System.out.println("abcdefg");
         FileOutputStream fos = new FileOutputStream(exportUrl);
         workbook.write(fos);
         fos.close();
