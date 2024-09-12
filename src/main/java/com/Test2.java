@@ -14,9 +14,21 @@ public class Test2 {
         }
     }
 
+    public static void print0() {
+        int n = 5;
+        for(int i = 1; i <= n; i ++) {
+            for(int j = n-i; j >0; j --) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+
     public static void main(String[] args) {
         int height = 5;
-        print(height);
+//        print(height);
+        print0();
     }
 
 }
