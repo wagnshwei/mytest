@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>山东德诚转贷管理服务有限公司 - 转贷业务审批决策委员会决策意见表</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            font-style: italic;
+            font-size: 21px;
+        }
+
+        .td-first-colum {
+            width: 110px;
+        }
+
+        .td-second-colum {
+            width: 110px;
+            height: 100px;
+        }
+
+        .td-third-colum {
+            border: 1px solid #ccc;
+            /*padding: 8px;*/
+        }
+
+        .approval-item {
+            height: 30px;
+        }
+
+        .comment-font {
+            text-align: center;
+            font-style: italic;
+            font-size: 21px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>山东德诚转贷管理服务有限公司
+    <br/>转贷业务审批决策委员会决策意见表</h1>
+<table>
+    <tr>
+        <td class="td-first-colum">业务负责人：<br/>${businessPrincipal}</td>
+        <td class="td-third-colum">
+            <table>
+                <tr>
+                    <td style="border: none; padding: 0">客户名称:${customerName}</td>
+                    <td style="border: none; padding: 0; text-align:right">审议日期:${businessApplyDate}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="td-second-colum">业务操作方案</td>
+        <td style="width: 600px">
+            ${operationApproach}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="comment-font">转贷业务审批决策委员会委员意见</td>
+    </tr>
+    <tr>
+        <td>${userName0}</td>
+        <td>
+            <div class="approval-item">${decision0}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>${userName1}</td>
+        <td>
+            <div class="approval-item">${decision1}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>${userName2}</td>
+        <td>
+            <div class="approval-item">${decision2}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>${userName3}</td>
+        <td>
+            <div class="approval-item">${decision3}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>${userName4}</td>
+        <td>
+            <div class="approval-item">${decision4}</div>
+        </td>
+    </tr>
+    <tr>
+        <td>${userName5}</td>
+        <td>
+            <div class="approval-item">${decision5}</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="comment-font">转贷业务审批决策委员会决议</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div style="height: 150px;">${committeeComment}</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="comment-font">转贷业务审批决策委员会主任意见</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div style="height: 150px;">${committeeDirectorComment}</div>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

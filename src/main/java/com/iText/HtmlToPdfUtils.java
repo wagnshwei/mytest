@@ -138,8 +138,8 @@ public class HtmlToPdfUtils {
 
 
 	public static void main(String[] args) throws DocumentException, IOException {
-		String htmlPath = "D:\\test.html"; // 输入HTML文件的路径
-		String pdfPath = "D:\\output.pdf"; // 输出PDF文件的路径
+		String htmlPath = "C:\\Users\\HP\\IdeaProjects\\HelloWorld\\src\\main\\resources\\htmlTemplate\\conferenceResolution.html"; // 输入HTML文件的路径
+		String pdfPath = "C:\\Users\\HP\\IdeaProjects\\HelloWorld\\src\\main\\resources\\htmlTemplate\\output.pdf"; // 输出PDF文件的路径
 		// 获取html内容文字
 		String htmlContent = new String(Files.readAllBytes(Paths.get(htmlPath)));
 		creatHtmlpdf(htmlContent, pdfPath);
