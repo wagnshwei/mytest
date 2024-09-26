@@ -81,5 +81,6 @@ public class DateConverter {
         System.out.println("Formatted date (custom): " + formattedDate2);
 //        HashMap
         System.out.println("123");
+        System.out.println("123");
     }
 }
