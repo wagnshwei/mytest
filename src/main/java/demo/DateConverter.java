@@ -80,5 +80,6 @@ public class DateConverter {
         String formattedDate2 = DateConverter.convertToString(currentDate, "dd/MM/yyyy");
         System.out.println("Formatted date (custom): " + formattedDate2);
 //        HashMap
+        System.out.println("123");
     }
 }
