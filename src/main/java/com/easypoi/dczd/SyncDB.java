@@ -5,16 +5,16 @@ import java.util.List;
 
 public class SyncDB {
 
-    private static String jdbcURL = "jdbc:mysql://192.168.0.15:3306/dczd?useUnicode=true&characterEncoding=UTF-8";
+    private static String jdbcURL = "jdbc:mysql://localhost:3306/dczd?useUnicode=true&characterEncoding=UTF-8";
     private static String username = "root";
     private static String password = "123";
     private static final String INSERT_APPLY_SQL = "INSERT INTO dczd_business_apply " +
             " (company_name, bank_name, apply_loan_contract_no, bank_lease_info, company_offer_amount, apply_loan_amount, " +
-            " apply_loan_start_time, apply_loan_end_time, if_settle, approval_status, create_time, create_user_id, update_time, update_user_id) " +
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            " apply_loan_start_time, apply_loan_end_time, if_issue_loan_contact_form, if_settle, approval_status, create_time, create_user_id, update_time, update_user_id) " +
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String INSERT_DETAIL_SQL = "INSERT INTO dczd_business_repay_detail " +
-            " (business_apply_id, enlending_balance, interest_balance, if_loan, start_time, end_time, create_time, create_user_id, update_time, update_user_id) " +
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            " (business_apply_id, origin_loan_amount, company_self_finance, loan_amount, enlending_balance, interest_amount, if_loan, start_time, end_time, days, create_time, create_user_id, update_time, update_user_id) " +
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static Connection connect() {
         Connection connection = null;
@@ -41,39 +41,68 @@ public class SyncDB {
 
                 for (Entity entity : entities) {
                     String now = Helper.getNowDatetime();
-                    applyStatement.setString(1, entity.getCompanyName());
-                    applyStatement.setString(2, entity.getBankName());
-                    applyStatement.setString(3, entity.getApplyLoanContractNo());
-                    applyStatement.setString(4, entity.getLeaseInfo());
-                    applyStatement.setDouble(5, entity.getCompanyOfferAmount());
-                    applyStatement.setDouble(6, entity.getApplyLoanAmount());
-                    applyStatement.setString(7, entity.getApplyLoanStartTime());
-                    applyStatement.setString(8, entity.getApplyLoanEndTime());
-                    applyStatement.setString(9, entity.getIfSettle());
-                    applyStatement.setString(10, "-1");
-                    applyStatement.setString(11, now);
-                    applyStatement.setLong(12, 1L);
-                    applyStatement.setString(13, now);
-                    applyStatement.setLong(14, 1L);
-                    applyStatement.executeUpdate();
-
+                    try {
+                        applyStatement.setString(1, entity.getCompanyName());
+                        applyStatement.setString(2, entity.getBankName());
+                        applyStatement.setString(3, entity.getApplyLoanContractNo());
+                        applyStatement.setString(4, entity.getLeaseInfo());
+                        if(entity.getCompanyOfferAmount() == null) {
+                            applyStatement.setNull(5, Types.DOUBLE);
+                        } else {
+                            applyStatement.setDouble(5, entity.getCompanyOfferAmount());
+                        }
+                        applyStatement.setDouble(6, entity.getApplyLoanAmount());
+                        applyStatement.setString(7, entity.getApplyLoanStartTime());
+                        applyStatement.setString(8, entity.getApplyLoanEndTime());
+                        applyStatement.setString(9, entity.getIfBankOfferContractForm());
+                        applyStatement.setString(10, entity.getIfSettle());
+                        applyStatement.setString(11, "-1");
+                        applyStatement.setString(12, now);
+                        applyStatement.setLong(13, 1L);
+                        applyStatement.setString(14, now);
+                        applyStatement.setLong(15, 1L);
+                        applyStatement.executeUpdate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     ResultSet rs = applyStatement.getGeneratedKeys();
 
                     if (rs.next()) {
                         long businessApplyId = rs.getLong(1);
                         for (Entity child : entity.getChildren()) {
                             now = Helper.getNowDatetime();
-                            detailStatement.setLong(1, businessApplyId);
-                            detailStatement.setDouble(2, child.getOfferLeaseAmount());
-                            detailStatement.setDouble(3, child.getRepayInterest());
-                            detailStatement.setString(4, child.getIfLoan());
-                            detailStatement.setString(5, child.getApplyLoanStartTime());
-                            detailStatement.setString(6, child.getApplyLoanEndTime());
-                            detailStatement.setString(7, now);
-                            detailStatement.setLong(8, 1L);
-                            detailStatement.setString(9, now);
-                            detailStatement.setLong(10, 1L);
-                            detailStatement.executeUpdate();
+                            try {
+                                detailStatement.setLong(1, businessApplyId);
+                                if(child.getOriginalLoanAmount() == null) {
+                                    detailStatement.setNull(2, Types.DOUBLE);
+                                } else {
+                                    detailStatement.setDouble(2, child.getOriginalLoanAmount());
+                                }
+                                if(child.getCompanyOfferAmount() == null) {
+                                    detailStatement.setNull(3, Types.DOUBLE);
+                                } else {
+                                    detailStatement.setDouble(3, child.getCompanyOfferAmount());
+                                }
+                                if(child.getApplyLoanAmount() == null) {
+                                    detailStatement.setNull(4, Types.DOUBLE);
+                                } else {
+                                    detailStatement.setDouble(4, child.getApplyLoanAmount());
+                                }
+                                detailStatement.setDouble(5, child.getOfferLeaseAmount());
+                                detailStatement.setDouble(6, child.getRepayInterest());
+                                detailStatement.setString(7, child.getIfLoan());
+                                detailStatement.setString(8, child.getApplyLoanStartTime());
+                                detailStatement.setString(9, child.getApplyLoanEndTime());
+                                detailStatement.setInt(10, child.getDays());
+                                detailStatement.setString(11, now);
+                                detailStatement.setLong(12, 1L);
+                                detailStatement.setString(13, now);
+                                detailStatement.setLong(14, 1L);
+                                detailStatement.executeUpdate();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
                     rs.close();
